@@ -45,8 +45,9 @@ int main(int argc, char *argv[])
             exit(EXIT_FAILURE);
         }
 
-        printf("%g\t%g + " NAT_FMT "/" NAT_FMT "\n", g * f1, g * floor(f1),
-               num(frac1), den(frac1));
+        printf("%g\t%g %s " NAT_FMT "/" NAT_FMT "\n", g * f1,
+               g * floor(f1), (-1 == g) ? "-" : "+", g * num(frac1),
+               den(frac1));
 
         freeFrac(frac1);
     }
