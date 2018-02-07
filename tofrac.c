@@ -11,11 +11,11 @@ int main(int argc, char *argv[])
     nat x;
 
     for (i = 1; i < argc; i++) {
-        g = 0;
+        g = 1;
         f1 = atof(argv[i]);
         if (f1 < 0) {
             f1 = -f1;
-            g = 1;
+            g = -1;
         }
 
         if (f1 == floor(f1)) {
@@ -38,17 +38,15 @@ int main(int argc, char *argv[])
             n++;
         }
 
-        if (1 == g) {
-            x = -x;
-        }
+        x *= g;
 
         if ((frac1 = newFrac(x, (nat) (1ULL << n))) == NULL) {
             fprintf(stderr, "tofrac: MEMORY ERROR!!!\n");
             exit(EXIT_FAILURE);
         }
 
-        printf("%g\t" NAT_FMT "/" NAT_FMT "\n", f1, num(frac1),
-               den(frac1));
+        printf("%g\t%g + " NAT_FMT "/" NAT_FMT "\n", g * f1, g * floor(f1),
+               num(frac1), den(frac1));
 
         freeFrac(frac1);
     }
