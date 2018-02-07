@@ -3,12 +3,35 @@
 #include <stdlib.h>
 #include "frac.h"
 
+static nat gcd(nat a, nat b)
+{
+    nat d = 0;
+
+    while (((a % 2) == 0) && ((b % 2) == 0)) {
+        a /= 2;
+        b /= 2;
+        d++;
+    }
+
+    while (a != b) {
+        if ((a % 2) == 0)
+            a /= 2;
+        else if ((b % 2) == 0)
+            b /= 2;
+        else if (a > b)
+            a = (a - b) / 2;
+        else
+            b = (b - a) / 2;
+    }
+
+    return a * (1ULL << d);
+}
+
 int main(int argc, char *argv[])
 {
-    frac *frac1;
     int i, n, g;
     double f1, f2;
-    nat x;
+    nat nm, dn, gd, x;
 
     for (i = 1; i < argc; i++) {
         g = 1;
@@ -38,18 +61,12 @@ int main(int argc, char *argv[])
             n++;
         }
 
-        x *= g;
-
-        if ((frac1 = newFrac(x, (nat) (1ULL << n))) == NULL) {
-            fprintf(stderr, "tofrac: MEMORY ERROR!!!\n");
-            exit(EXIT_FAILURE);
-        }
+        gd = gcd(x, (nat) (1ULL << n));
+        nm = x / gd;
+        dn = (1ULL << n) / gd;
 
         printf("%g\t%g %s " NAT_FMT "/" NAT_FMT "\n", g * f1,
-               g * floor(f1), (-1 == g) ? "-" : "+", g * num(frac1),
-               den(frac1));
-
-        freeFrac(frac1);
+               g * floor(f1), (-1 == g) ? "-" : "+", nm, dn);
     }
 
     return 0;
