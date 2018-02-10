@@ -107,6 +107,11 @@ int main(int argc, char *argv[])
             fr1 = makefrac(argv[i] + 1, &r);
         }
 
+        if (NULL == fr1) {
+            fprintf(stderr, "MEMORY ERROR!\n");
+            exit(EXIT_FAILURE);
+        }
+
         if (1 == v) {
             f2 = f1 - floor(f1);
 
