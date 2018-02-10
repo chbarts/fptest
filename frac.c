@@ -6,16 +6,28 @@ struct frac {
     nat den;
 };
 
-static nat gcd(nat num1, nat num2)
+static nat gcd(nat a, nat b)
 {
-    while (num1 != num2) {
-        if (num1 > num2)
-            num1 -= num2;
-        else
-            num2 -= num1;
+    nat d = 0;
+
+    while (((a % 2) == 0) && ((b % 2) == 0)) {
+        a /= 2;
+        b /= 2;
+        d++;
     }
 
-    return num1;
+    while (a != b) {
+        if ((a % 2) == 0)
+            a /= 2;
+        else if ((b % 2) == 0)
+            b /= 2;
+        else if (a > b)
+            a = (a - b) / 2;
+        else
+            b = (b - a) / 2;
+    }
+
+    return a * (1ULL << d);
 }
 
 static void reduce(frac * op)
