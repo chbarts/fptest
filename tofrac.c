@@ -43,7 +43,7 @@ static frac *makefrac(char *frac, int *ipart)
         return newFrac(0, 1);
     }
 
-    for (i = 0, mult = 1; '\0' != fp[i]; i++, mult *= 10);
+    for (i = 0, mult = 1; '\0' != (dp + 1)[i]; i++, mult *= 10);
 
     return newFrac(fp, mult);
 }
