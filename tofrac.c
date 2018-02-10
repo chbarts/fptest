@@ -35,7 +35,6 @@ static frac *makefrac(char *frac, int *ipart)
 
     *ipart = atoi(frac);
     dp = memchr(frac, '.', strlen(frac));
-    pos = dp - frac;
 
     fp = atoi(dp + 1);
 
