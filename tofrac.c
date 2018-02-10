@@ -33,13 +33,13 @@ static frac *makefrac(char *frac, int *ipart)
     char *dp;
     int fp, mult, i;
 
+    *ipart = atoi(frac);
     dp = memchr(frac, '.', strlen(frac));
     pos = dp - frac;
 
     fp = atoi(dp + 1);
 
     if (0 == fp) {
-        *ipart = atoi(frac);
         return newFrac(0, 1);
     }
 
