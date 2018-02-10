@@ -50,7 +50,8 @@ static frac *makefrac(char *frac, int *ipart)
 
 int main(int argc, char *argv[])
 {
-    int i, n, g;
+    frac *fr1;
+    int i, n, g, r;
     double f1, f2;
     nat nm, dn, gd, x;
 
@@ -86,8 +87,13 @@ int main(int argc, char *argv[])
         nm = x / gd;
         dn = (1ULL << n) / gd;
 
-        printf("%g\t%g %s " NAT_FMT "/" NAT_FMT "\n", g * f1,
-               g * floor(f1), (-1 == g) ? "-" : "+", nm, dn);
+        fr1 = makefrac(argv[i], &r);
+
+        printf("%g\t%g %s " NAT_FMT "/" NAT_FMT "\t%d + " NAT_FMT "/"
+               NAT_FMT "\n", g * f1, g * floor(f1), (-1 == g) ? "-" : "+",
+               nm, dn, r, num(fr1), den(fr1));
+
+        freeFrac(fr1);
     }
 
     return 0;
