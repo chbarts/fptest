@@ -1,5 +1,6 @@
 #include <math.h>
 #include <stdio.h>
+#include <string.h>
 #include <stdlib.h>
 #include "frac.h"
 
@@ -25,6 +26,26 @@ static nat gcd(nat a, nat b)
     }
 
     return a * (1ULL << d);
+}
+
+static frac *makefrac(char *frac, int *ipart)
+{
+    char *dp;
+    int fp, mult, i;
+
+    dp = memchr(frac, '.', strlen(frac));
+    pos = dp - frac;
+
+    fp = atoi(dp + 1);
+
+    if (0 == fp) {
+        *ipart = atoi(frac);
+        return newFrac(0, 1);
+    }
+
+    for (i = 0, mult = 1; '\0' != fp[i]; i++, mult *= 10);
+
+    return newFrac(fp, mult);
 }
 
 int main(int argc, char *argv[])
